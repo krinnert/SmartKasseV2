@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<preference-headers xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:unified="http://schemas.android.com/apk/res-auto" >
+
+    <!--
+/*
+** Header definitions are identical to android:* except for preferenceRes which should be a reference to a preference xml file
+** Unlike the native headers these are also used for building the single pane version.
+*/
+-->
+    <header
+        unified:fragment="com.example.smartkasse.Act_Settings.MainActivity$GeneralPreferenceFragment"
+        unified:title="General"
+        unified:preferenceRes="@xml/pref_general" />
+    <header
+        unified:fragment="com.example.smartkasse.Act_Settings.MainActivity$NotificationPreferenceFragment"
+        unified:title="Notifications"
+        unified:preferenceRes="@xml/pref_notification" />
+    <header
+        unified:fragment="com.example.smartkasse.Act_Settings.MainActivity$DataSyncPreferenceFragment"
+        unified:title="DataSync"
+        unified:preferenceRes="@xml/pref_data_sync" />
+
+</preference-headers>
+
+
+

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">SmartKasse</string>
+    <string name="action_settings">Settings</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="customers">Customers</string>
+
+    <string name="app_name">Smart Kasse</string>
+    <string name="menu_settings">Settings2</string>
+	<string name="new_register" >New register</string>
+	<string name="arrow_desc">Arrow right</string>
+	<string name="register_logo_desc">Register logo</string>
+</resources>
