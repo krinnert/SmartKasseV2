@@ -7,7 +7,7 @@
 ** Header definitions are identical to android:* except for preferenceRes which should be a reference to a preference xml file
 ** Unlike the native headers these are also used for building the single pane version.
 */
--->
+
     <header
         unified:fragment="com.example.smartkasse.Act_Settings.MainActivity$GeneralPreferenceFragment"
         unified:title="General"
@@ -21,6 +21,7 @@
         unified:title="DataSync"
         unified:preferenceRes="@xml/pref_data_sync" />
 
+-->    
 </preference-headers>
 
 
