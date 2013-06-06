@@ -1,10 +1,7 @@
 package Database;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -23,7 +20,7 @@ public class Database {
 
 	// Kasse
 	protected static final String KEY_KasseID = "KasseID";
-	protected static final String Kassename = "Kassename";
+	protected static final String Kassename = "Kassenname";
 	protected static final String KasseErstellungsdatum = "Erstellungsdatum";
 	protected static final String KasseBearbeitungsdatum = "Bearbeitungsdatum";
 	// Artikel
@@ -31,7 +28,7 @@ public class Database {
 	protected static final String ArtikelName = "Name";
 	protected static final String ArtikelPreis = "Preis";
 	protected static final String ArtikelBestand = "Bestand";
-	protected static final String ArtikelKassenname = "Kassenbestand";
+	protected static final String ArtikelKassenname = "Kassenname";
 	protected static final String ArtikelKategorieID = "KategorieID";
 	// KundenID
 	protected static final String KEY_KundenID = "KundenID";
@@ -45,7 +42,8 @@ public class Database {
 	protected static final String KEY_KategorieID = "KategorieID";
 	protected static final String KategorieName = "Name";
 	protected static final String KategorieFarbe = "Farbe";
-
+	protected static final String KategorieKassenName = "Kassenname";
+	
 	// Database fields
 	private SQLiteDatabase database;
 	private DatabaseHelper dbHelper;
@@ -63,7 +61,7 @@ public class Database {
 		dbHelper.close();
 	}
 
-	// ----------------------- KASSEN-METHODS ----------------------- 
+	// ----------------------- REGISTER-FUNCTIONS ----------------------- 
 	
 	// Create a new entry with a user-specified name for the register
 	// Day & time will be created automatically
@@ -124,7 +122,7 @@ public class Database {
 	}
 
 	
-	// ----------------------- ARTIKEL-METHODS ----------------------- 
+	// ----------------------- ARTICLE-FUNCTIONS ----------------------- 
 
 	public long insertArtikel(int id, String name, float preis, int bestand, String kassenname, int kategorieID) {
 		open();
@@ -157,12 +155,11 @@ public class Database {
 	public List<String> getArtikelofCategory(String kassenName, String category) {
 		open();
 		List<String> artikel = new ArrayList<String>();
-		
-		
-		
-		Cursor cursorCategory = database.rawQuery("SELECT " + KEY_KategorieID + " FROM " + TABLE_Kategorie + " WHERE " + KategorieName + " = ?", new String[]{category});
+		// Get categoryID
+		Cursor cursorCategory = database.rawQuery("SELECT " + KEY_KategorieID + " FROM " + TABLE_Kategorie + " WHERE " + KategorieKassenName + " = ?, " + KategorieName + " = ?", new String[]{kassenName, category});
 		cursorCategory.moveToFirst();
 		String categoryID = cursorCategory.toString();
+		// Get articles with the specified category and registername
 		Cursor cursor = database.rawQuery("SELECT " + ArtikelName + " FROM " + TABLE_Artikel + " WHERE " + ArtikelKassenname + " = ?, " + ArtikelKategorieID + " = ?", new String[]{kassenName, categoryID});
 		cursor.moveToFirst();
 	    while (!cursor.isAfterLast()) {
@@ -197,6 +194,9 @@ public class Database {
 		return cursor.getString(0); 
 	}
 	
+	
+	// ----------------------- CUSTOMER-FUNCTIONS ----------------------- 
+	
 	public long insertKunde(int kundeID, String name, String kassenName) {
 		open();
 		ContentValues values = new ContentValues();
@@ -208,6 +208,9 @@ public class Database {
 		return test;
 	}
 
+	
+	// ----------------------- CUSTOMER/ARTICLE-FUNCTIONS ----------------------- 
+	
 	public long insertKundeArtikel(int anzahl, String zeitstempel) {
 		open();
 		ContentValues values = new ContentValues();
@@ -226,11 +229,15 @@ public class Database {
 		return cursor.getString(0); 
 	}
 */
-	public long insertKategorie(String name, int color) {
+	
+	// ----------------------- CATEGORY-FUNCTIONS ----------------------- 
+	
+	public long insertKategorie(String name, int color, String kassenName) {
 		open();
 		ContentValues values = new ContentValues();
 		values.put(KategorieName, name);
 		values.put(KategorieFarbe, color);
+		values.put(KategorieKassenName, kassenName);
 		long test = database.insert(TABLE_Artikel, null, values);
 		close();
 		return test;

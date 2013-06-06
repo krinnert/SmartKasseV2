@@ -27,7 +27,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 				+ Database.ArtikelKassenname + " TEXT,"
 				+ Database.ArtikelKategorieID + " INTEGER" + ");";
 		String CREATE_Kasse_TABLE = "CREATE TABLE " + Database.TABLE_Kasse + "("
-				//+ Database.KEY_KasseID + " INTEGER PRIMARY KEY AUTOINCREMENT," 
 				+ Database.Kassename + " TEXT PRIMARY KEY," 
 				+ Database.KasseErstellungsdatum + " TEXT," 
 				+ Database.KasseBearbeitungsdatum + " TEXT" + ");";
@@ -43,7 +42,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		String CREATE_Kategorie_TABLE = "CREATE TABLE " + Database.TABLE_Kategorie + "("
 				+ Database.KEY_KategorieID + " INTEGER PRIMARY KEY,"
 				+ Database.KategorieName + " TEXT,"
-				+ Database.KategorieFarbe + " INTEGER" + ");";
+				+ Database.KategorieFarbe + " INTEGER,"
+				+ Database.KategorieKassenName + " TEXT" + ");";
 		database.execSQL(CREATE_Artikel_TABLE);
 		database.execSQL(CREATE_Kasse_TABLE);
 		database.execSQL(CREATE_Kunde_TABLE);
